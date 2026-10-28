@@ -22,20 +22,30 @@ namespace Pancakes.CysTerra {
 				TimeZone = TimeZoneInfo.Utc,
 				UtcIssueTime = DateTime.UtcNow,
 			};
-			// 优先用宿主内置地名库（经纬度→本地化地名）；失败再回退上游 region。
+			// 优先宿主地名库。target 用界面语言；local 用 en（上游 region 多为英文）。
+			// 回退地名 specificity 必须低于地名库，否则同组里英文会盖过中文（曾误用 12）。
 			if (e.Latitude is double nameLat && e.Longitude is double nameLon) {
-				context.NameLocationTo(result, nameLat, nameLon, SharedCultures.Get("zh-CN"), culture);
+				var named = context.NameLocationTo(
+					result, nameLat, nameLon, SharedCultures.Get("en"), culture);
+				if (!named) {
+					context.NameLocationTo(
+						result, nameLat, nameLon, SharedCultures.Get("zh-CN"), SharedCultures.Get("zh-CN"));
+				}
 			}
 			if (result.Location == null && !string.IsNullOrEmpty(e.Place)) {
 				result.Location = e.Place;
-				result.LocationSpecificity = 8;
+				result.LocationSpecificity = 0;
 			}
 			if (e.OriginUtc is DateTime origin) {
 				result.Time = new DateTimeOffset(DateTime.SpecifyKind(origin, DateTimeKind.Utc));
 			}
-			var issued = e.OriginUtc ?? DateTime.UtcNow;
+			// 失效时刻必须从「本报发出」起算，不能用发震时刻：GQ 发震后数分钟才推送，
+			// 用 OriginUtc+3min 会一进列表就进「已失效报告」。
 			result.InvalidatedTime = new DateTimeOffset(
-				DateTime.SpecifyKind(issued, DateTimeKind.Utc) + TimeSpan.FromMinutes(e.IsFinal || e.IsCancel ? 10 : 3));
+				DateTime.UtcNow + TimeSpan.FromMinutes(e.IsFinal || e.IsCancel ? 10 : 3));
+			if (e.IsCancel) {
+				result.InvalidatedTime = new DateTimeOffset(DateTime.UtcNow);
+			}
 			result.GroupKeys.Add(new UnitKey(e.UnitId));
 			result.RevisionKey = new RevKey(e.Serial ?? 0, e.IsCancel, e.IsFinal);
 			if (e.Latitude is double lat && e.Longitude is double lon && e.Magnitude is double mag

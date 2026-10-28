@@ -19,7 +19,8 @@ namespace Pancakes.CysTerra.Features {
 				{ Source, e.Agency },
 				{ Subject, ReportForecast },
 			};
-			if (!string.IsNullOrEmpty(e.Place)) {
+			// 有坐标时不写上游英文 region，避免盖过报告侧地名库结果；无坐标才回退。
+			if (e.Latitude == null && e.Longitude == null && !string.IsNullOrEmpty(e.Place)) {
 				feature[Name] = e.Place;
 			}
 			if (e.OriginUtc is DateTime origin) {
