@@ -6,20 +6,21 @@
 
 ## 安装
 
-扩展仅适用于 CysTerra **通用版**。以下三个包均需安装，版本 **0.4.0**：
+扩展仅适用于 CysTerra **通用版**。以下三个包均需安装，版本 **0.4.1**：
 
 | 组件 | 导入包 |
 | --- | --- |
-| 事件源 + 事件摘要 | `Pancakes.CysTerra-0.4.0.zip` |
-| 事件详情 | `Pancakes.CysTerra.Features-0.4.0.zip` |
-| 语音消息 | `Pancakes.CysTerra.TTS-0.4.0.zip` |
+| 事件源 + 事件摘要 | `Pancakes.CysTerra-0.4.1.zip` |
+| 事件详情 | `Pancakes.CysTerra.Features-0.4.1.zip` |
+| 语音消息 | `Pancakes.CysTerra.TTS-0.4.1.zip` |
 
 每个 zip 的主 dll 位于根目录，可直接导入。发布附件见本仓库 [Releases](https://github.com/Jian11323/Pancakes.CysTerra/releases)。
 
 ## 说明
 
 - WebSocket 固定为 `wss://api.aloys23.link/api/v1/alert/ws/quake/gq`，设置中不展示，无需填写密钥或其他配置。
-- 载荷按 PancakesAPI `/gq` 文档解析（`source` / `type` / `action` / `payload`）；烈度为 MMI。
+- 载荷按 PancakesAPI `/gq` 文档解析（`source` / `type` / `action` / `payload`）；亦识别 `status=archived|cancelled`。
+- 取消报、最终报分别映射标题 / TTS 音效 / `IsCancellation`·`IsFinalRevision`；详情 `Ongoing` 在取消与最终时报关闭。
 - 上游没有的震级、深度、坐标不会补写。
 
 开发说明见 [CysTerra 扩展文档](https://docs.eew.cryville.world/) 与 [PancakesAPI/gq](https://wiki.aloys23.link/wiki/PancakesAPI/gq)。
