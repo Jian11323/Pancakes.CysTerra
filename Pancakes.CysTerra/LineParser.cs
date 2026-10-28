@@ -57,6 +57,7 @@ namespace Pancakes.CysTerra {
 			var origin = Time(data, "originTimeMs", "originTime", "originTimeIso", "time", "startAt")
 				?? Time(root, "timestampMs");
 			var intensity = Intensity(data);
+			var intensityMmi = MmiIntensity.TryParse(intensity);
 
 			if (!cancel && (mag == null || lat == null || lon == null || depth == null)) {
 				return null;
@@ -76,6 +77,7 @@ namespace Pancakes.CysTerra {
 				Longitude = lon,
 				OriginUtc = origin,
 				Intensity = intensity,
+				IntensityMmi = intensityMmi,
 				Fingerprint = fp,
 			};
 		}

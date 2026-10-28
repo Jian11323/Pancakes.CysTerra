@@ -35,9 +35,9 @@ namespace Pancakes.CysTerra.Features {
 				}
 				feature[At] = at;
 			}
-			// PancakesAPI/gq：intensity 为 MMI 罗马数字（I–XII）
-			if (!string.IsNullOrEmpty(e.Intensity)) {
-				feature[IntensityMMI] = e.Intensity;
+			// IntensityMMI 要求数值（见 TagTypeKeys 文档）；上游罗马数字已在解析时换成 IntensityMmi。
+			if (e.IntensityMmi is float mmi) {
+				feature[IntensityMMI] = mmi;
 			}
 			return feature;
 		}

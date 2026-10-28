@@ -1,6 +1,12 @@
 bin/
 obj/
+_ref/
+local/
 dist/
+EewcnJsCT/
 *.user
 *.suo
-.vs/
+refresh-token.json
+**/*secret*
+**/*.pfx
+**/*.pem

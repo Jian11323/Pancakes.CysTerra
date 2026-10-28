@@ -48,10 +48,14 @@ namespace Pancakes.CysTerra {
 					string.Format(culture, res.GetStringRequired("PropertyDepthValue"), d.ToString("0.0", culture)),
 					context.SeverityScheme, d) { AccuracyOrder = 80 });
 			}
-			if (!string.IsNullOrEmpty(e.Intensity)) {
+			// IntensityMMI 的 raw 必须是数字；展示仍用上游罗马数字原文。
+			if (e.IntensityMmi is float mmi) {
+				var display = !string.IsNullOrEmpty(e.Intensity)
+					? e.Intensity!
+					: mmi.ToString("0", culture);
 				result.Properties.Add(new(
-					IntensityMMI, res.GetStringRequired("PropertyIntensity"), e.Intensity,
-					context.SeverityScheme, e.Intensity) { AccuracyOrder = 85 });
+					IntensityMMI, res.GetStringRequired("PropertyIntensity"), display,
+					context.SeverityScheme, mmi) { AccuracyOrder = 85 });
 			}
 			if (e.Serial is int s) {
 				result.Properties.Add(new(
