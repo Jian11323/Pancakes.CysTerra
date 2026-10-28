@@ -17,8 +17,9 @@ namespace Pancakes.CysTerra.TTS {
 			var spoken = new StringBuilder();
 			spoken.Append(res.GetStringRequired("TtsLead"));
 			spoken.Append(res.GetStringRequired(TitleKey(e)));
-			if (!string.IsNullOrEmpty(e.Place)) {
-				spoken.Append(string.Format(culture, res.GetStringRequired("TtsPlace"), e.Place));
+			var place = ResolvePlace(e, context, ref culture);
+			if (!string.IsNullOrEmpty(place)) {
+				spoken.Append(string.Format(culture, res.GetStringRequired("TtsPlace"), place));
 			}
 			if (e.Magnitude is double mag) {
 				spoken.Append(string.Format(culture, res.GetStringRequired("TtsMagnitude"), mag.ToString("0.0", culture)));
@@ -36,6 +37,17 @@ namespace Pancakes.CysTerra.TTS {
 			var repeatTitle = SharedResources.SourceName(ref cultureForName)
 				?? res.GetStringRequired("TtsRepeatTitle");
 			return new TTSEntry(culture, repeatTitle, spoken.ToString(), priority, SoundFor(e));
+		}
+
+		static string? ResolvePlace(LineEvent e, ITTSMessageGeneratorContext context, ref CultureInfo culture) {
+			if (e.Latitude is double lat && e.Longitude is double lon) {
+				var target = culture;
+				if (context.NameLocation(lat, lon, SharedCultures.Get("zh-CN"), ref target, out var named)
+					&& !string.IsNullOrEmpty(named)) {
+					return named;
+				}
+			}
+			return e.Place;
 		}
 
 		static string? SoundFor(LineEvent e) {

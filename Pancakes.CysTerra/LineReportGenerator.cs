@@ -19,11 +19,17 @@ namespace Pancakes.CysTerra {
 					: e.IsFinal
 						? res.GetStringRequired("TitleFinal")
 						: (e.Serial is > 1 ? res.GetStringRequired("TitleUpdate") : res.GetStringRequired("Title")),
-				Location = e.Place,
-				LocationSpecificity = e.Latitude != null ? 12 : 8,
 				TimeZone = TimeZoneInfo.Utc,
 				UtcIssueTime = DateTime.UtcNow,
 			};
+			// 优先用宿主内置地名库（经纬度→本地化地名）；失败再回退上游 region。
+			if (e.Latitude is double nameLat && e.Longitude is double nameLon) {
+				context.NameLocationTo(result, nameLat, nameLon, SharedCultures.Get("zh-CN"), culture);
+			}
+			if (result.Location == null && !string.IsNullOrEmpty(e.Place)) {
+				result.Location = e.Place;
+				result.LocationSpecificity = 8;
+			}
 			if (e.OriginUtc is DateTime origin) {
 				result.Time = new DateTimeOffset(DateTime.SpecifyKind(origin, DateTimeKind.Utc));
 			}
