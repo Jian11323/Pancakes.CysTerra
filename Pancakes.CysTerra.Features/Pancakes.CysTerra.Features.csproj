@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>0.4.0</Version>
+    <IsExtensionProject>true</IsExtensionProject>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>Pancakes.CysTerra.Features</AssemblyName>
+    <RootNamespace>Pancakes.CysTerra.Features</RootNamespace>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+    <Description>用于生成 GlobalQuake 事件详情的组件。</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Cryville.EEW" Version="0.8.14" ExcludeAssets="runtime" />
+    <PackageReference Include="Cryville.EEW.Features" Version="0.8.1" ExcludeAssets="runtime" />
+    <PackageReference Include="Cryville.EEW.Measure" Version="0.8.1" ExcludeAssets="runtime" />
+    <PackageReference Include="Cryville.EEW.TagTypeKeys" Version="0.8.1" ExcludeAssets="runtime" />
+    <PackageReference Include="Cryville.Measure" Version="0.8.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Cryville.EEW.Analyzer" Version="0.8.7" ExcludeAssets="runtime" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pancakes.CysTerra\Pancakes.CysTerra.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\LICENSE.txt" Link="LICENSE.txt" Condition="Exists('..\..\LICENSE.txt')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\COPYING.txt" Link="COPYING.txt" Condition="Exists('..\..\COPYING.txt')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,7 @@
+{
+	"Culture": "zh-CN",
+	"Strings": {
+		"$ExtensionDesc": "用于生成 PancakesAPI GlobalQuake 事件详情的组件。",
+		"$ExtensionName": "Pancakes事物组件"
+	}
+}
