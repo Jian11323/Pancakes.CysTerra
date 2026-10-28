@@ -93,11 +93,11 @@ namespace Pancakes.CysTerra {
 					string.Format(culture, res.GetStringRequired("PropertyDepthValue"), d.ToString("F1", culture)),
 					context.SeverityScheme, d) { AccuracyOrder = 90 });
 			}
-			// PancakesAPI 额外：MMI。展示用罗马字，Severity 参数必须是数值（官方 RomanNumerals）
-			if (e.IntensityMmi is float mmi) {
+			// PancakesAPI 额外：MMI（GQ 用 IntensityMMI；用法同官方 CreateRomanIntensityProperty）
+			if (e.IntensityMmi is float maxIntensity) {
 				result.Properties.Add(RomanNumerals.CreateRomanIntensityProperty(
-					IntensityMMI, res.GetStringRequired("PropertyIntensity"), mmi, culture,
-					context.SeverityScheme, 85));
+					TagTypeKeys.IntensityMMI, res.GetStringRequired("PropertyMaxIntensity"),
+					maxIntensity, culture, context.SeverityScheme, 10));
 			}
 			return result;
 		}

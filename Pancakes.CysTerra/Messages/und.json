@@ -7,7 +7,7 @@
 		"ComponentName": "PancakesAPI（GlobalQuake）",
 		"PropertyDepth": "深度",
 		"PropertyDepthValue": "{0}km",
-		"PropertyIntensity": "最大烈度",
+		"PropertyMaxIntensity": "最大烈度",
 		"PropertyMagnitude": "M",
 		"PropertySerial": "报数",
 		"SourceName": "PancakesAPI",
