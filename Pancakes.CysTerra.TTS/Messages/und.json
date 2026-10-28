@@ -11,6 +11,7 @@
 		"TtsLead": "GlobalQuake",
 		"TtsMagnitude": "，震级{0}",
 		"TtsPlace": "，{0}",
-		"TtsRepeatTitle": "GlobalQuake"
+		"TtsRepeatTitle": "GlobalQuake",
+		"TitleFinal": "最终报"
 	}
 }

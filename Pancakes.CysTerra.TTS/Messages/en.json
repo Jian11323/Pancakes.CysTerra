@@ -11,6 +11,7 @@
 		"TtsLead": "GlobalQuake ",
 		"TtsMagnitude": ", magnitude {0}",
 		"TtsPlace": ", {0}",
-		"TtsRepeatTitle": "GlobalQuake"
+		"TtsRepeatTitle": "GlobalQuake",
+		"TitleFinal": "Final report"
 	}
 }

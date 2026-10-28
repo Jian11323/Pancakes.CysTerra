@@ -11,6 +11,7 @@
 		"SourceName": "GlobalQuake",
 		"Title": "地震预警",
 		"TitleCancel": "取消报",
-		"TitleUpdate": "地震预警更新"
+		"TitleUpdate": "地震预警更新",
+		"TitleFinal": "最终报"
 	}
 }

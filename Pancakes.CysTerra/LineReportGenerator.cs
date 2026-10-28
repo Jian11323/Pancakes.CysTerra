@@ -16,7 +16,9 @@ namespace Pancakes.CysTerra {
 				Source = res.GetStringRequired("SourceName"),
 				Title = e.IsCancel
 					? res.GetStringRequired("TitleCancel")
-					: (e.Serial is > 1 ? res.GetStringRequired("TitleUpdate") : res.GetStringRequired("Title")),
+					: e.IsFinal
+						? res.GetStringRequired("TitleFinal")
+						: (e.Serial is > 1 ? res.GetStringRequired("TitleUpdate") : res.GetStringRequired("Title")),
 				Location = e.Place,
 				LocationSpecificity = e.Latitude != null ? 12 : 8,
 				TimeZone = TimeZoneInfo.Utc,

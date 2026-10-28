@@ -11,6 +11,7 @@
 		"SourceName": "GlobalQuake",
 		"Title": "Earthquake early warning",
 		"TitleCancel": "Cancellation",
-		"TitleUpdate": "Earthquake early warning update"
+		"TitleUpdate": "Earthquake early warning update",
+		"TitleFinal": "Final report"
 	}
 }

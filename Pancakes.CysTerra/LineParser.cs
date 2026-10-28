@@ -33,24 +33,30 @@ namespace Pancakes.CysTerra {
 				data = root;
 			}
 
+			var status = Text(data, "status") ?? Text(root, "status");
 			var cancel = string.Equals(action, "cancelled", StringComparison.OrdinalIgnoreCase)
 				|| string.Equals(action, "canceled", StringComparison.OrdinalIgnoreCase)
+				|| string.Equals(status, "cancelled", StringComparison.OrdinalIgnoreCase)
+				|| string.Equals(status, "canceled", StringComparison.OrdinalIgnoreCase)
 				|| Flag(data, "isCancel", "cancelled", "canceled");
 			var final = string.Equals(action, "archived", StringComparison.OrdinalIgnoreCase)
-				|| Flag(data, "isFinal")
-				|| Text(data, "status")?.Equals("archived", StringComparison.OrdinalIgnoreCase) == true;
+				|| string.Equals(status, "archived", StringComparison.OrdinalIgnoreCase)
+				|| Flag(data, "isFinal");
 
 			var mag = Num(data, "magnitude");
 			var lat = Num(data, "latitude");
 			var lon = Num(data, "longitude");
 			var depth = Num(data, "depth", "depthKm");
-			var place = Text(data, "region", "place", "placeName") ?? "GlobalQuake";
-			var serial = Int(data, "revisionId", "updates", "reportNum", "revision") ?? 1;
+			var place = Text(data, "region", "place", "placeName");
+			if (string.IsNullOrEmpty(place) && !cancel) {
+				place = "GlobalQuake";
+			}
+			var serial = Revision(data) ?? 1;
 			var id = Text(data, "id", "eventId", "EventID")
-				?? string.Join("|", place, Fmt(lat), Fmt(lon), Fmt(mag));
+				?? string.Join("|", place ?? "", Fmt(lat), Fmt(lon), Fmt(mag));
 			var origin = Time(data, "originTimeMs", "originTime", "originTimeIso", "time", "startAt")
 				?? Time(root, "timestampMs");
-			var intensity = Text(data, "intensity", "maxIntensity");
+			var intensity = Intensity(data);
 
 			if (!cancel && (mag == null || lat == null || lon == null || depth == null)) {
 				return null;
@@ -115,6 +121,27 @@ namespace Pancakes.CysTerra {
 			}
 			var i = (int)n.Value;
 			return i > 0 ? i : null;
+		}
+
+		/// <summary>优先 revisionId；忽略像毫秒时间戳的巨大 revision。</summary>
+		static int? Revision(JsonElement o) {
+			var id = Int(o, "revisionId", "updates", "reportNum");
+			if (id != null) {
+				return id;
+			}
+			var rev = Num(o, "revision");
+			if (rev == null || rev <= 0 || rev > 100_000) {
+				return null;
+			}
+			return (int)rev.Value;
+		}
+
+		static string? Intensity(JsonElement o) {
+			var s = Text(o, "intensity", "maxIntensity");
+			if (string.IsNullOrEmpty(s) || s is "-" or "—" or "N/A" or "n/a" or "null") {
+				return null;
+			}
+			return s;
 		}
 
 		static DateTime? Time(JsonElement o, params string[] keys) {

@@ -76,6 +76,9 @@ namespace Pancakes.CysTerra.TTS {
 			if (e.IsCancel) {
 				return "TitleCancel";
 			}
+			if (e.IsFinal) {
+				return "TitleFinal";
+			}
 			return e.Serial is > 1 ? "TitleUpdate" : "Title";
 		}
 	}
