@@ -2,6 +2,6 @@
 	"Culture": "en",
 	"Strings": {
 		"$ExtensionDesc": "Component that generates PancakesAPI GlobalQuake event details.",
-		"$ExtensionName": "Pancakes features"
+		"$ExtensionName": "Pancakes (GlobalQuake) features"
 	}
 }
