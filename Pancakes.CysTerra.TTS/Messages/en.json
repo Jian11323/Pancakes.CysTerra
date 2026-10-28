@@ -1,17 +1,17 @@
 {
 	"Culture": "en",
 	"Strings": {
-		"$ExtensionDesc": "Component that generates PancakesAPI GlobalQuake voice messages.",
-		"$ExtensionName": "Pancakes (GlobalQuake) TTS",
+		"$ExtensionDesc": "Component that generates PancakesAPI (GlobalQuake) voice messages.",
+		"$ExtensionName": "PancakesAPI (GlobalQuake) TTS",
 		"Title": "Earthquake early warning. ",
 		"TitleCancel": "Cancellation. ",
 		"TitleUpdate": "Earthquake early warning update. ",
 		"TtsDepth": ", depth {0} kilometers",
 		"TtsIntensity": ", maximum intensity {0}",
-		"TtsLead": "Pancakes (GlobalQuake) ",
+		"TtsLead": "PancakesAPI (GlobalQuake) ",
 		"TtsMagnitude": ", magnitude {0}",
 		"TtsPlace": ", {0}",
-		"TtsRepeatTitle": "Pancakes (GlobalQuake)",
+		"TtsRepeatTitle": "PancakesAPI (GlobalQuake)",
 		"TitleFinal": "Final report"
 	}
 }

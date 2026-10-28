@@ -1,14 +1,14 @@
 {
 	"Culture": "zh-CN",
 	"Strings": {
-		"$ExtensionDesc": "用于接收及处理 PancakesAPI GlobalQuake 来源的信息的核心组件。",
-		"$ExtensionName": "Pancakes（GlobalQuake）事件源组件",
+		"$ExtensionDesc": "用于接收及处理 PancakesAPI来源的信息的核心组件。",
+		"$ExtensionName": "PancakesAPI事件源组件",
 		"PropertyDepth": "深度",
 		"PropertyDepthValue": "{0}km",
 		"PropertyIntensity": "最大烈度",
 		"PropertyMagnitude": "M",
 		"PropertySerial": "报数",
-		"SourceName": "Pancakes（GlobalQuake）",
+		"SourceName": "PancakesAPI",
 		"Title": "地震预警",
 		"TitleCancel": "取消报",
 		"TitleUpdate": "地震预警更新",

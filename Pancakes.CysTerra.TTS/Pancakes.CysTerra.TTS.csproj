@@ -9,7 +9,7 @@
     <AssemblyName>Pancakes.CysTerra.TTS</AssemblyName>
     <RootNamespace>Pancakes.CysTerra.TTS</RootNamespace>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
-    <Description>用于生成 GlobalQuake 语音消息的组件。</Description>
+    <Description>用于生成 PancakesAPI（GlobalQuake）语音消息的组件。</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Cryville.EEW" Version="0.8.14" ExcludeAssets="runtime" />
