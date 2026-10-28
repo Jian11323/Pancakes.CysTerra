@@ -82,22 +82,23 @@ namespace Pancakes.CysTerra {
 				}
 			}
 
+			// 与 Jian 一致：烈度先加（列表左侧色块），再震级/深度；AccuracyOrder 同档，避免
+			// 烈度用 10、震级深度用 90 时右侧把「非官方」震级/深度藏掉。
+			if (e.IntensityMmi is float maxIntensity) {
+				result.Properties.Add(RomanNumerals.CreateRomanIntensityProperty(
+					TagTypeKeys.IntensityMMI, res.GetStringRequired("PropertyMaxIntensity"),
+					maxIntensity, culture, context.SeverityScheme, 30));
+			}
 			if (e.Magnitude is double m) {
 				result.Properties.Add(new(
 					Magnitude, res.GetStringRequired("PropertyMagnitude"), m.ToString("F1", culture),
-					context.SeverityScheme, m) { AccuracyOrder = 90 });
+					context.SeverityScheme, m) { AccuracyOrder = 30 });
 			}
 			if (e.DepthKm is double d) {
 				result.Properties.Add(new(
 					HypocenterDepth, res.GetStringRequired("PropertyDepth"),
 					string.Format(culture, res.GetStringRequired("PropertyDepthValue"), d.ToString("F1", culture)),
-					context.SeverityScheme, d) { AccuracyOrder = 90 });
-			}
-			// PancakesAPI 额外：MMI（GQ 用 IntensityMMI；用法同官方 CreateRomanIntensityProperty）
-			if (e.IntensityMmi is float maxIntensity) {
-				result.Properties.Add(RomanNumerals.CreateRomanIntensityProperty(
-					TagTypeKeys.IntensityMMI, res.GetStringRequired("PropertyMaxIntensity"),
-					maxIntensity, culture, context.SeverityScheme, 10));
+					context.SeverityScheme, d) { AccuracyOrder = 30 });
 			}
 			return result;
 		}

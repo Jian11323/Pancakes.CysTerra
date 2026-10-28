@@ -6,13 +6,13 @@
 
 ## 安装
 
-扩展仅适用于 CysTerra **通用版**（Android 版不支持扩展）。以下三个包均需安装，版本 **0.4.7.0**：
+扩展仅适用于 CysTerra **通用版**（Android 版不支持扩展）。以下三个包均需安装，版本 **0.4.7.1**：
 
 | 组件 | 导入包 |
 | --- | --- |
-| 事件源 + 事件摘要 | `Pancakes.CysTerra-0.4.7.0.zip` |
-| 事件详情 | `Pancakes.CysTerra.Features-0.4.7.0.zip` |
-| 语音消息 | `Pancakes.CysTerra.TTS-0.4.7.0.zip` |
+| 事件源 + 事件摘要 | `Pancakes.CysTerra-0.4.7.1.zip` |
+| 事件详情 | `Pancakes.CysTerra.Features-0.4.7.1.zip` |
+| 语音消息 | `Pancakes.CysTerra.TTS-0.4.7.1.zip` |
 
 每个 zip 的主 dll 位于根目录，可直接导入。发布附件见本仓库 [Releases](https://github.com/Jian11323/Pancakes.CysTerra/releases)。
 
