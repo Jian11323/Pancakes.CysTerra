@@ -34,7 +34,7 @@
 ## 行为说明
 
 - 字段语义对齐官方 GlobalQuake 报告（震级、深度、坐标、修订、归档等）；上游没有的字段不会补写。
-- MMI 以罗马数字解析后写入数值烈度，供 Severity / 详情使用。
+- MMI：上游罗马数字经官方 `RomanNumerals.RomanToInteger` 转为数值后再写入 Severity；展示用 `CreateRomanIntensityProperty`。
 - 终报（归档）后事件会按官方超时表从进行中状态退出。
 - 地名解析使用与官方一致的 NameLocation 策略。
 

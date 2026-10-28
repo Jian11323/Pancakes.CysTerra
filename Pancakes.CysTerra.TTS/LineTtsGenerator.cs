@@ -58,24 +58,24 @@ namespace Pancakes.CysTerra.TTS {
 			if (e.Serial is > 1) {
 				return "eew_update";
 			}
-			return IntensitySound(e.Intensity);
+			return IntensitySound(e.IntensityMmi);
 		}
 
-		static string IntensitySound(string? intensity) {
-			if (string.IsNullOrEmpty(intensity)) {
+		static string IntensitySound(float? mmi) {
+			if (mmi is null) {
 				return "eew_2";
 			}
-			var t = intensity.Trim().ToUpperInvariant();
-			if (t is "X" or "XI" or "XII" or "IX") {
+			var n = mmi.Value;
+			if (n >= 9) {
 				return "eew_5";
 			}
-			if (t is "VII" or "VIII") {
+			if (n >= 7) {
 				return "eew_4";
 			}
-			if (t is "V" or "VI") {
+			if (n >= 5) {
 				return "eew_3";
 			}
-			if (t is "III" or "IV") {
+			if (n >= 3) {
 				return "eew_2";
 			}
 			return "eew_1";

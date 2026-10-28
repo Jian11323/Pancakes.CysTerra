@@ -10,6 +10,8 @@
     <RootNamespace>Pancakes.CysTerra</RootNamespace>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <Description>用于接收及处理 PancakesAPI来源的信息的核心组件。</Description>
+    <!-- 开发者确认使用 RomanNumerals；Analyzer 标为评估 API -->
+    <NoWarn>$(NoWarn);CRYVEEW5001</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Cryville.EEW" Version="0.8.14" ExcludeAssets="runtime" />
