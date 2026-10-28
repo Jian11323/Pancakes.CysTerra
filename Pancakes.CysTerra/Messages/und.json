@@ -1,8 +1,10 @@
 {
 	"Culture": "zh-CN",
 	"Strings": {
-		"$ExtensionDesc": "用于接收及处理 PancakesAPI来源的信息的核心组件。",
-		"$ExtensionName": "PancakesAPI事件源组件",
+		"$ExtensionDesc": "用于接收及处理 PancakesAPI 来源的信息的核心组件。",
+		"$ExtensionName": "PancakesAPI 事件源组件",
+		"AuthorityName": "GlobalQuake",
+		"ComponentName": "PancakesAPI（GlobalQuake）",
 		"PropertyDepth": "深度",
 		"PropertyDepthValue": "{0}km",
 		"PropertyIntensity": "最大烈度",

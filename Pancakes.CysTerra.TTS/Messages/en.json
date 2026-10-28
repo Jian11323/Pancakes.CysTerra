@@ -3,15 +3,16 @@
 	"Strings": {
 		"$ExtensionDesc": "Component that generates PancakesAPI voice messages.",
 		"$ExtensionName": "PancakesAPI TTS",
+		"ComponentName": "PancakesAPI (GlobalQuake)",
 		"Title": "Earthquake early warning. ",
 		"TitleCancel": "Cancellation. ",
 		"TitleUpdate": "Earthquake early warning update. ",
 		"TtsDepth": ", depth {0} kilometers",
 		"TtsIntensity": ", maximum intensity {0}",
-		"TtsLead": "PancakesAPI ",
+		"TtsLead": "PancakesAPI (GlobalQuake) ",
 		"TtsMagnitude": ", magnitude {0}",
 		"TtsPlace": ", {0}",
-		"TtsRepeatTitle": "PancakesAPI",
+		"TtsRepeatTitle": "PancakesAPI (GlobalQuake)",
 		"TitleFinal": "Final report"
 	}
 }

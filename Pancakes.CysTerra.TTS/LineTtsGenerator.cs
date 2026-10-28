@@ -32,9 +32,7 @@ namespace Pancakes.CysTerra.TTS {
 			}
 
 			var priority = e.IsCancel ? -50 : -100;
-			CultureInfo? cultureForName = culture;
-			var repeatTitle = SharedResources.SourceName(ref cultureForName)
-				?? res.GetStringRequired("TtsRepeatTitle");
+			var repeatTitle = res.GetStringRequired("TtsRepeatTitle");
 			return new TTSEntry(culture, repeatTitle, spoken.ToString(), priority, SoundFor(e));
 		}
 

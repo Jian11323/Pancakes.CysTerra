@@ -29,8 +29,9 @@ namespace Pancakes.CysTerra {
 			using var lres = new LocalizedResource("", ref culture);
 			var res = lres.RootMessageStringSet;
 
+			// Source 出现在预警条：保持与官方一致的 GlobalQuake
 			var result = new ReportModel {
-				Source = res.GetStringRequired("SourceName"),
+				Source = res.GetStringRequired("AuthorityName"),
 			};
 			result.GroupKeys.Add(new UnitKey(e.UnitId));
 			result.RevisionKey = new RevKey(e.Serial ?? 0, e.IsCancel, e.IsFinal);

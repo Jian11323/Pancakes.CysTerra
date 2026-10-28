@@ -2,7 +2,9 @@
 	"Culture": "en",
 	"Strings": {
 		"$ExtensionDesc": "Core component that receives and processes PancakesAPI alerts.",
-		"$ExtensionName": "PancakesAPI",
+		"$ExtensionName": "PancakesAPI source",
+		"AuthorityName": "GlobalQuake",
+		"ComponentName": "PancakesAPI (GlobalQuake)",
 		"PropertyDepth": "Depth",
 		"PropertyDepthValue": "{0}km",
 		"PropertyIntensity": "Max intensity",

@@ -23,6 +23,7 @@ namespace Pancakes.CysTerra {
 
 	[Export(typeof(IBuilder<IGenerator<ReportModel>>))]
 	public sealed class ReportBuilder : SimpleBuilder<LineReportGenerator> {
-		public override string? GetName([NotNull] ref CultureInfo? culture) => SharedResources.SourceName(ref culture);
+		// 事件摘要：PancakesAPI（GlobalQuake）
+		public override string? GetName([NotNull] ref CultureInfo? culture) => SharedResources.ComponentName(ref culture);
 	}
 }
