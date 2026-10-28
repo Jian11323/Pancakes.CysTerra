@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Pancakes.CysTerra {
 	/// <summary>
-	/// 解析 PancakesAPI /gq 实时推送（见 https://wiki.aloys23.link/wiki/PancakesAPI/gq ）。
+	/// 解析 PancakesAPI /gq（官方旧 TCP ObjectStream 已停，字段映射尽量对齐 GlobalQuakeReport）。
 	/// </summary>
 	static class LineParser {
 		public static LineEvent? Parse(JsonElement root) {
@@ -17,7 +17,6 @@ namespace Pancakes.CysTerra {
 				return null;
 			}
 
-			// PancakesAPI：type=earthquake，业务在 payload；兼容旧 Jian /gq 的 Data 信封。
 			var action = Text(root, "action");
 			JsonElement data;
 			if (root.TryGetProperty("payload", out var payload) && payload.ValueKind == JsonValueKind.Object) {
@@ -48,22 +47,25 @@ namespace Pancakes.CysTerra {
 			var lon = Num(data, "longitude");
 			var depth = Num(data, "depth", "depthKm");
 			var place = Text(data, "region", "place", "placeName");
-			if (string.IsNullOrEmpty(place) && !cancel) {
-				place = "GlobalQuake";
+			var serial = Revision(data);
+			if (serial == null && !cancel && !final) {
+				serial = 1;
 			}
-			var serial = Revision(data) ?? 1;
-			var id = Text(data, "id", "eventId", "EventID")
+			var id = Text(data, "id", "eventId", "EventID", "uuid")
 				?? string.Join("|", place ?? "", Fmt(lat), Fmt(lon), Fmt(mag));
-			var origin = Time(data, "originTimeMs", "originTime", "originTimeIso", "time", "startAt")
-				?? Time(root, "timestampMs");
+			var origin = Time(data, "originTimeMs", "originTime", "originTimeIso", "time", "startAt", "origin");
+			var lastUpdated = Time(data, "lastUpdate", "lastUpdated", "lastUpdateMs", "updatedAt", "finalUpdateMillis")
+				?? Time(root, "timestampMs", "timestamp")
+				?? origin;
 			var intensity = Intensity(data);
 			var intensityMmi = MmiIntensity.TryParse(intensity);
 
-			if (!cancel && (mag == null || lat == null || lon == null || depth == null)) {
+			if (!cancel && (mag == null || lat == null || lon == null || depth == null || origin == null)) {
 				return null;
 			}
 
-			var fp = string.Join("|", id, serial, cancel, final, Fmt(mag), Fmt(depth), Fmt(lat), Fmt(lon), place, intensity);
+			var fp = string.Join("|", id, serial, cancel, final, Fmt(mag), Fmt(depth), Fmt(lat), Fmt(lon), place, intensity,
+				lastUpdated?.Ticks);
 			return new LineEvent {
 				Agency = "gq",
 				UnitId = id,
@@ -76,6 +78,7 @@ namespace Pancakes.CysTerra {
 				Latitude = lat,
 				Longitude = lon,
 				OriginUtc = origin,
+				LastUpdatedUtc = lastUpdated,
 				Intensity = intensity,
 				IntensityMmi = intensityMmi,
 				Fingerprint = fp,

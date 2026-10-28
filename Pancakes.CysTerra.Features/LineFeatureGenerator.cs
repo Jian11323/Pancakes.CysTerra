@@ -8,23 +8,27 @@ using static Cryville.EEW.TagTypeKeys;
 using Cryville.EEW;
 
 namespace Pancakes.CysTerra.Features {
+	/// <summary>
+	/// 对齐官方 GlobalQuakeReportFeatureGenerator（不写 Name；Ongoing=!归档）。
+	/// </summary>
 	public sealed class LineFeatureGenerator : IGenerator<LineEvent, Feature?> {
 		static readonly Unit Kilometre = Units.Metre.WithPrefix(MetricPrefixes.Kilo);
 
 		public Feature? Generate(LineEvent e, ref CultureInfo culture) {
 			ThrowHelper.ThrowIfNull(e);
+			if (e.IsCancel) {
+				return null;
+			}
+
 			var feature = new Feature {
 				{ Is, Earthquake },
-				{ Ongoing, !e.IsCancel && !e.IsFinal },
-				{ Source, e.Agency },
-				{ Subject, ReportForecast },
+				{ Ongoing, !e.IsFinal },
 			};
-			// 有坐标时不写上游英文 region，避免盖过报告侧地名库结果；无坐标才回退。
-			if (e.Latitude == null && e.Longitude == null && !string.IsNullOrEmpty(e.Place)) {
-				feature[Name] = e.Place;
-			}
 			if (e.OriginUtc is DateTime origin) {
 				feature[Time] = new DateTimeOffset(DateTime.SpecifyKind(origin, DateTimeKind.Utc));
+			}
+			if (e.LastUpdatedUtc is DateTime updated) {
+				feature[TimeModified] = new DateTimeOffset(DateTime.SpecifyKind(updated, DateTimeKind.Utc));
 			}
 			if (e.Magnitude is double mag) {
 				feature[Magnitude] = new Quantity(mag, Units.Dimensionless);
@@ -35,10 +39,6 @@ namespace Pancakes.CysTerra.Features {
 					at[HypocenterDepth] = new Quantity(depth, Kilometre);
 				}
 				feature[At] = at;
-			}
-			// IntensityMMI 要求数值（见 TagTypeKeys 文档）；上游罗马数字已在解析时换成 IntensityMmi。
-			if (e.IntensityMmi is float mmi) {
-				feature[IntensityMMI] = mmi;
 			}
 			return feature;
 		}

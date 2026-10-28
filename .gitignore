@@ -3,7 +3,6 @@ obj/
 _ref/
 local/
 dist/
-EewcnJsCT/
 *.user
 *.suo
 refresh-token.json

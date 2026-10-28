@@ -22,7 +22,7 @@ namespace Pancakes.CysTerra.TTS {
 				spoken.Append(string.Format(culture, res.GetStringRequired("TtsPlace"), place));
 			}
 			if (e.Magnitude is double mag) {
-				spoken.Append(string.Format(culture, res.GetStringRequired("TtsMagnitude"), mag.ToString("0.0", culture)));
+				spoken.Append(string.Format(culture, res.GetStringRequired("TtsMagnitude"), mag.ToString("F1", culture)));
 			}
 			if (e.DepthKm is double depth) {
 				spoken.Append(string.Format(culture, res.GetStringRequired("TtsDepth"), depth.ToString("0", culture)));
@@ -31,7 +31,6 @@ namespace Pancakes.CysTerra.TTS {
 				spoken.Append(string.Format(culture, res.GetStringRequired("TtsIntensity"), e.Intensity));
 			}
 
-			// CysTerra：数值越小优先级越高；普通 0，紧急 -100。
 			var priority = e.IsCancel ? -50 : -100;
 			CultureInfo? cultureForName = culture;
 			var repeatTitle = SharedResources.SourceName(ref cultureForName)
@@ -42,7 +41,8 @@ namespace Pancakes.CysTerra.TTS {
 		static string? ResolvePlace(LineEvent e, ITTSMessageGeneratorContext context, ref CultureInfo culture) {
 			if (e.Latitude is double lat && e.Longitude is double lon) {
 				var target = culture;
-				if (context.NameLocation(lat, lon, SharedCultures.Get("zh-CN"), ref target, out var named)
+				// 对齐官方报告：localCulture = null
+				if (context.NameLocation(lat, lon, null, ref target, out var named)
 					&& !string.IsNullOrEmpty(named)) {
 					return named;
 				}
@@ -68,7 +68,6 @@ namespace Pancakes.CysTerra.TTS {
 				return "eew_2";
 			}
 			var t = intensity.Trim().ToUpperInvariant();
-			// MMI 罗马数字粗分档
 			if (t is "X" or "XI" or "XII" or "IX") {
 				return "eew_5";
 			}
@@ -91,7 +90,8 @@ namespace Pancakes.CysTerra.TTS {
 			if (e.IsFinal) {
 				return "TitleFinal";
 			}
-			return e.Serial is > 1 ? "TitleUpdate" : "Title";
+			// 官方进行中一律 Title，无「更新」标题
+			return "Title";
 		}
 	}
 }
