@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.4.6</Version>
+    <Version>0.4.7</Version>
     <IsExtensionProject>true</IsExtensionProject>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
@@ -9,7 +9,7 @@
     <AssemblyName>Pancakes.CysTerra</AssemblyName>
     <RootNamespace>Pancakes.CysTerra</RootNamespace>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
-    <Description>用于接收及处理 PancakesAPI（GlobalQuake）来源的信息的核心组件。</Description>
+    <Description>用于接收及处理 PancakesAPI来源的信息的核心组件。</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Cryville.EEW" Version="0.8.14" ExcludeAssets="runtime" />
