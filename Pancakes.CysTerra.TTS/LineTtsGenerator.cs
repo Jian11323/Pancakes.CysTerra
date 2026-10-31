@@ -32,6 +32,7 @@ namespace Pancakes.CysTerra.TTS {
 			}
 
 			var priority = e.IsCancel ? -50 : -100;
+			// 重复标题用中文「地震情报」，避免 TTS 朗读英文 PancakesAPI / GlobalQuake
 			var repeatTitle = res.GetStringRequired("TtsRepeatTitle");
 			return new TTSEntry(culture, repeatTitle, spoken.ToString(), priority, SoundFor(e));
 		}
