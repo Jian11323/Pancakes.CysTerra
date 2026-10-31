@@ -9,10 +9,10 @@
 		"TitleUpdate": "地震预警更新",
 		"TtsDepth": "，深度{0}千米",
 		"TtsIntensity": "，最大烈度{0}",
-		"TtsLead": "PancakesAPI（GlobalQuake）",
+		"TtsLead": "",
 		"TtsMagnitude": "，震级{0}",
 		"TtsPlace": "，{0}",
-		"TtsRepeatTitle": "PancakesAPI（GlobalQuake）",
+		"TtsRepeatTitle": "地震情报",
 		"TitleFinal": "最终报"
 	}
 }
